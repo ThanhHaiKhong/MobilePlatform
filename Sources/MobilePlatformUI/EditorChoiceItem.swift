@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import MobileConfigClient
 import SwiftUI
+import UIKit
 
 @Reducer
 public struct EditorChoiceItem {
@@ -21,6 +22,22 @@ public struct EditorChoiceItem {
     }
     
     public enum Action {
-        
+        case openURL(URL)
+    }
+    
+    public var body: some ReducerOf<Self> {
+        Reduce { state, action in
+            switch action {
+                case .openURL(_):
+                return .none
+            }
+        }
+    }
+    
+    public init() {}
+    
+    @MainActor
+    private func openURL(_ url: URL) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

@@ -18,11 +18,10 @@ extension MobileConfigClient: DependencyKey {
 }
 
 private actor Configurator {
-    private let remoteConfig = RemoteConfig.remoteConfig()
     private var cachedEditorChoices: [EditorChoice]? = nil
     
     public init() {
-        remoteConfig.addOnConfigUpdateListener { configUpdate, error in
+        RemoteConfig.remoteConfig().addOnConfigUpdateListener { configUpdate, error in
             guard error == nil else { return }
             RemoteConfig.remoteConfig().activate { changed, error in
                 guard error == nil else { return }
@@ -55,16 +54,16 @@ private actor Configurator {
         }
     }
     
-    private func fetchEditorChoices() async throws -> [EditorChoice] {
+    nonisolated private func fetchEditorChoices() async throws -> [EditorChoice] {
         return try await withCheckedThrowingContinuation { continuation in
-            remoteConfig.fetchAndActivate { status, error in
+            RemoteConfig.remoteConfig().fetchAndActivate { status, error in
                 if let error {
                     continuation.resume(throwing: error)
                     return
                 }
                 
                 if status == .successFetchedFromRemote {
-                    if let editorChoiceJSON = self.remoteConfig.configValue(forKey: "PREF_REMOTE_CONFIG_EDITOR_CHOICES_KEY").jsonValue as? [[String: Any]] {
+                    if let editorChoiceJSON = RemoteConfig.remoteConfig().configValue(forKey: "PREF_REMOTE_CONFIG_EDITOR_CHOICES_KEY").jsonValue as? [[String: Any]] {
                         do {
                             let editorChoices = try self.decodeEditorChoices(from: editorChoiceJSON)
                             continuation.resume(returning: editorChoices)
@@ -79,7 +78,7 @@ private actor Configurator {
         }
     }
     
-    private func decodeEditorChoices(from json: [[String: Any]]) throws -> [EditorChoice] {
+    nonisolated private func decodeEditorChoices(from json: [[String: Any]]) throws -> [EditorChoice] {
         let jsonData = try JSONSerialization.data(withJSONObject: json)
         let editorChoices = try JSONDecoder().decode([EditorChoice].self, from: jsonData)
         return editorChoices

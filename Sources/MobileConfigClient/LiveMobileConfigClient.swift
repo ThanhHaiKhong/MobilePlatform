@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import FirebaseRemoteConfig
 import FirebaseCore
+import GoogleMobileAds
 
 extension MobileConfigClient: DependencyKey {
     public static var liveValue: MobileConfigClient {

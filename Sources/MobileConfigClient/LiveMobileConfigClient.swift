@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import FirebaseRemoteConfig
+import FirebaseCore
 
 extension MobileConfigClient: DependencyKey {
     public static var liveValue: MobileConfigClient {

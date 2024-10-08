@@ -39,6 +39,7 @@ let package = Package(
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 .product(name: "TCAComposer", package: "tca-composer"),
                 "Kingfisher",
+                "MobileConfigClient",
             ]
         ),
         .target(

@@ -13,7 +13,8 @@ import UIKit
 @Reducer
 public struct EditorChoiceItem {
     @ObservableState
-    public struct State: Equatable {
+    public struct State: Identifiable, Equatable {
+        public let id: UUID = UUID()
         public let item: EditorChoice
         
         public init(item: EditorChoice) {

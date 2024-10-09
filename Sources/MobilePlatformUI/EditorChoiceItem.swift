@@ -22,7 +22,7 @@ public struct EditorChoiceItem {
         }
     }
     
-    public enum Action {
+    public enum Action: Equatable {
         case openURL(URL)
     }
     

@@ -6,7 +6,6 @@
 //
 
 import ComposableArchitecture
-import MobileConfigClient
 import Kingfisher
 import SwiftUI
 
@@ -49,7 +48,7 @@ public struct EditorChoiceItemView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 5))
                             
                             VStack(alignment: .leading, spacing: 3) {
-                                Text(store.item.caption ?? "")
+                                Text(store.item.title ?? "")
                                     .font(.subheadline)
                                     .lineLimit(1)
                                 

@@ -11,9 +11,7 @@ import Kingfisher
 import SwiftUI
 
 public struct EditorChoiceItemView: View {
-    
-    let store: StoreOf<EditorChoiceItem>
-    
+    private let store: StoreOf<EditorChoiceItem>
     private let edgePadding: CGFloat = 12
     private let artworkSize: CGFloat = 40
     
